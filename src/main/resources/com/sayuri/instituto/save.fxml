@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="563.0" prefWidth="878.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sayuri.instituto.controllers.SaveControllers">
+    <children>
+        <Pane prefHeight="94.0" prefWidth="878.0" style="-fx-background-color: #7B43F5;">
+            <children>
+                <Label layoutX="306.0" layoutY="-1.0" prefHeight="55.0" prefWidth="293.0" text="Students" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold Italic" size="66.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <Pane layoutY="94.0" prefHeight="470.0" prefWidth="120.0" style="-fx-background-color: #8955F9;" />
+        <Button fx:id="bttonAlta" layoutX="211.0" layoutY="455.0" mnemonicParsing="false" onMouseClicked="#bttonAlta" prefHeight="31.0" prefWidth="166.0" style="-fx-background-radius: 10px;" text="Alta" />
+        <Button fx:id="bttonReturn" layoutX="523.0" layoutY="455.0" mnemonicParsing="false" onMouseClicked="#bttonReturn" prefHeight="31.0" prefWidth="166.0" style="-fx-background-radius: 10px;" text="Salir" />
+      <Label layoutX="199.0" layoutY="118.0" prefHeight="21.0" prefWidth="191.0" text="Ingrese el nombre">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textName" layoutX="190.0" layoutY="156.0" prefHeight="31.0" prefWidth="283.0" />
+      <Label layoutX="199.0" layoutY="212.0" prefHeight="30.0" prefWidth="191.0" text="Ingrese el apellido">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textLastName" layoutX="190.0" layoutY="251.0" prefHeight="31.0" prefWidth="283.0" />
+      <Label layoutX="199.0" layoutY="314.0" prefHeight="30.0" prefWidth="206.0" text="Ingrese matricula">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textMatricula" layoutX="190.0" layoutY="360.0" prefHeight="31.0" prefWidth="283.0" />
+      <ComboBox fx:id="medioComboBox" layoutX="614.0" layoutY="156.0" onMouseClicked="#medioComboBox" prefHeight="31.0" prefWidth="191.0" />
+    </children>
+</AnchorPane>
