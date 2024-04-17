@@ -73,7 +73,7 @@ public class UpdateControllers {
                 String matriculaEstudiante = String.valueOf(student.getMatricula());
                 if (matriculaEstudiante.equals(matriculaExistente)){
                     student.setMatricula(Integer.parseInt(nuevaMatricula));
-                    general.updateAll(student);// Actualizar la base de datos
+                    general.updateAll(student);
                     textMatriculaExist.clear();
                     textMatricula.clear();
                     tableView.refresh();
