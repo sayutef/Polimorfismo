@@ -36,7 +36,7 @@ public class SaveControllers {
     private TextField textMatricula;
     @FXML
     private ComboBox<String> medioComboBox;
-    private Instituto inst;
+    private Instituto inst = HelloApplication.getMiniInstituto();
 
     @FXML
     void bttonAlta(MouseEvent event) {
@@ -51,7 +51,7 @@ public class SaveControllers {
             }
             int matricula =Integer.parseInt(matriculas);
             Student student = new Student(nombre, apellido, matricula);
-            HelloApplication.getInstituto().save(student);
+            inst.save(student);
 
             System.out.println("Nombre: "+ student.getNombre() + " . ");
             System.out.println("Apellido: "+ student.getApellido() + " . ");
@@ -75,16 +75,6 @@ public class SaveControllers {
 
     @FXML
     void medioComboBox(MouseEvent event) {
-        switch (medioComboBox.getValue()){
-            case "MySQL":
-                inst.setBaseDeDatos(new MySQL());
-                break;
-            case "OracleDataBase":
-                inst.setBaseDeDatos(new OracleDataBase());
-                break;
-            case "PostgreSQL":
-                inst.setBaseDeDatos(new PostgreSQL());
-        }
 
     }
     @FXML
@@ -95,7 +85,6 @@ public class SaveControllers {
     @FXML
     void initialize() {
         medioComboBox.getItems().addAll("MySQL", "OracleDataBase", "PostgreSQL");
-        inst = new Instituto();
     }
 
 }

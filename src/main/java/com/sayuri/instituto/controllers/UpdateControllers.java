@@ -8,8 +8,14 @@ import com.sayuri.instituto.HelloApplication;
 import com.sayuri.instituto.models.BaseDeDatos;
 import com.sayuri.instituto.models.Instituto;
 import com.sayuri.instituto.models.Student;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
@@ -49,38 +55,30 @@ public class UpdateControllers {
     private Button bttonSee;
 
     @FXML
-    private ComboBox<BaseDeDatos> medioComboBox;
+    private ComboBox<?> medioComboBox;
+    private BaseDeDatos database01;
+    private BaseDeDatos database02;
+    private BaseDeDatos database03;
+    private ArrayList<BaseDeDatos> dataBases = new ArrayList<>();
+    private Instituto general = HelloApplication.getMiniInstituto();
 
-    private Instituto instituto;
 
     @FXML
     void bttonAlta(MouseEvent event) {
         String matriculaExistente = textMatriculaExist.getText();
         String nuevaMatricula = textMatricula.getText();
 
-        if (!matriculaExistente.isEmpty() && !nuevaMatricula.isEmpty()) {
-
-            for (Student student : tableView.getItems()) {
-
+        if (!matriculaExistente.isEmpty() && !nuevaMatricula.isEmpty()){
+            for (Student student : tableView.getItems()){
                 String matriculaEstudiante = String.valueOf(student.getMatricula());
-                if (matriculaEstudiante.equals(matriculaExistente)) {
-
+                if (matriculaEstudiante.equals(matriculaExistente)){
                     student.setMatricula(Integer.parseInt(nuevaMatricula));
-
-                    instituto.update(student);
-
-                    mostrarAlerta("Éxito", "Actualización exitosa", "La matrícula se actualizó correctamente.", Alert.AlertType.INFORMATION);
-
+                    general.updateAll(student);// Actualizar la base de datos
                     textMatriculaExist.clear();
                     textMatricula.clear();
-                    return;
+                    tableView.refresh();
                 }
             }
-
-            mostrarAlerta("Error", "Matrícula no encontrada", "La matrícula existente no se encontró en la tabla.", Alert.AlertType.ERROR);
-        } else {
-
-            mostrarAlerta("Error", "Campos vacíos", "Por favor, complete ambos campos de matrícula.", Alert.AlertType.ERROR);
         }
     }
 
@@ -91,25 +89,16 @@ public class UpdateControllers {
 
     @FXML
     void bttonSee(MouseEvent event) {
-       Instituto instituto1 = HelloApplication.getInstituto();
-       tableView.getItems().clear();
-       if (instituto1.getListStudents().isEmpty()){
-           mostrarAlerta("Informacion", "", "No hay estudiantes", Alert.AlertType.INFORMATION);
-       }else {
-           tableView.getItems().addAll(instituto1.getListStudents());
-       }
+        if (general != null && general.getBaseDeDatos2() != null){
+            ArrayList<Student> listNew = general.getBaseDeDatos2().getListPostgre();
+            ObservableList<Student> listNewObservable = FXCollections.observableArrayList(listNew);
+            tableView.setItems(listNewObservable);
+        }
     }
 
     @FXML
     void medioComboBox(MouseEvent event) {
-        BaseDeDatos value = medioComboBox.getValue();
-        if (value.equals("MySQL")) {
-            instituto.getBaseDeDatos();
-        } else if (value.equals("OracleDataBase")) {
-            instituto.getBaseDeDatos();
-        } else if (value.equals("PostgreSQL")) {
-            instituto.getBaseDeDatos();
-        }
+
     }
 
     @FXML
@@ -118,13 +107,5 @@ public class UpdateControllers {
         tableLastName.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
         tableMatricula.setCellValueFactory(new PropertyValueFactory<>("Matricula"));
 
-        instituto = new Instituto();
-    }
-    private void mostrarAlerta(String titulo, String encabezado, String contenido, Alert.AlertType tipo) {
-        Alert alert = new Alert(tipo);
-        alert.setTitle(titulo);
-        alert.setHeaderText(encabezado);
-        alert.setContentText(contenido);
-        alert.showAndWait();
     }
 }

@@ -1,57 +1,55 @@
 package com.sayuri.instituto.models;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Instituto {
-   private ArrayList<Student> listStudents = new ArrayList<>();
-    private BaseDeDatos baseDeDatos;
 
-    public Instituto() {
+    private MySQL baseDeDatos;
+    private OracleDataBase baseDeDatos1;
+    private PostgreSQL baseDeDatos2;
+    private ArrayList<BaseDeDatos> listGeneral = new ArrayList<>();
+    public Instituto(BaseDeDatos baseDeDatos) {
+        this.baseDeDatos = new MySQL();
+        baseDeDatos1 = new OracleDataBase();
+        baseDeDatos2 = new PostgreSQL();
+
+        listGeneral.add(this.baseDeDatos);
+        listGeneral.add(baseDeDatos1);
+        listGeneral.add(baseDeDatos2);
     }
 
-    public boolean save (Student student){
-        return listStudents.add(student);
-    }
-    public boolean update (Student updatedStudent){
-        for (int i = 0; i < listStudents.size(); i++) {
-            Student student = listStudents.get(i);
-            if ( student.getMatricula() == updatedStudent.getMatricula()){
-                listStudents.set(i, updatedStudent);
-                return true;
+    public void save(Student student){
+            for (BaseDeDatos imprimir : listGeneral){
+                imprimir.save(student);
             }
-        }
-        return false;
     }
-
-    public ArrayList<Student> getListStudents() {
-        return listStudents;
-    }
-
-    public void setListStudents(ArrayList<Student> listStudents) {
-        this.listStudents = listStudents;
-    }
-    public Instituto(BaseDeDatos baseDeDatos){
-        this.baseDeDatos = baseDeDatos;
-    }
-    public void crearRegistro(Student student){
-        baseDeDatos.save(student);
-    }
-    public void updateRegistro(Student student){
-        baseDeDatos.update(student);
-    }
-    public void mostrarRegistros(){
-        for (Student student : listStudents) {
-            System.out.println(student);
+    public void updateAll(Student student){
+        for (BaseDeDatos imprimir : listGeneral){
+            imprimir.update(student);
         }
     }
 
-    public BaseDeDatos getBaseDeDatos() {
+    public MySQL getBaseDeDatos() {
         return baseDeDatos;
     }
 
-    public void setBaseDeDatos(BaseDeDatos baseDeDatos) {
+    public void setBaseDeDatos(MySQL baseDeDatos) {
         this.baseDeDatos = baseDeDatos;
     }
 
+    public OracleDataBase getBaseDeDatos1() {
+        return baseDeDatos1;
+    }
+
+    public void setBaseDeDatos1(OracleDataBase baseDeDatos1) {
+        this.baseDeDatos1 = baseDeDatos1;
+    }
+
+    public PostgreSQL getBaseDeDatos2() {
+        return baseDeDatos2;
+    }
+
+    public void setBaseDeDatos2(PostgreSQL baseDeDatos2) {
+        this.baseDeDatos2 = baseDeDatos2;
+    }
 }

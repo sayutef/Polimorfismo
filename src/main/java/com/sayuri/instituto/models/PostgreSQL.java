@@ -1,12 +1,29 @@
 package com.sayuri.instituto.models;
 
+import java.util.ArrayList;
+
 public class PostgreSQL implements BaseDeDatos{
-    @Override
-    public void save(Student student) {
-        System.out.println("Guardando estudiante PostgreSQL");
+    private ArrayList<Student>listPostgre;
+
+    public PostgreSQL(){
+        listPostgre = new ArrayList<>();
     }
     @Override
-    public void update(Student student) {
-        System.out.println("Actualizando estudiante ");
+    public void save(Student student){
+        listPostgre.add(student);
+    }
+    @Override
+    public boolean update(Student studentUpdate) {
+        for (int i = 0; i < listPostgre.size(); i++) {
+            Student student = listPostgre.get(i);
+            if ( student.getMatricula() == studentUpdate.getMatricula()){
+                listPostgre.set(i, studentUpdate);
+                return true;
+            }
+        }
+        return false;
+    }
+    public ArrayList<Student>getListPostgre(){
+        return listPostgre;
     }
 }

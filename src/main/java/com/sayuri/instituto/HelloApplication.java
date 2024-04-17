@@ -1,7 +1,7 @@
 package com.sayuri.instituto;
 
+import com.sayuri.instituto.models.BaseDeDatos;
 import com.sayuri.instituto.models.Instituto;
-import com.sayuri.instituto.models.Student;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,15 +15,20 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     private static Stage stageView;
     private static Stage stageRoot;
+    private static BaseDeDatos baseDeDatos;
+    private static Instituto miniInstituto = new Instituto(baseDeDatos);
 
-    private static Instituto instituto = new Instituto();
-    public static Instituto getInstituto(){return instituto;}
-    public static void setInstituto(Instituto newInstituto){
-        instituto = newInstituto;
+    public static Instituto getMiniInstituto() {
+        return miniInstituto;
+    }
+
+    public static void setMiniInstituto(Instituto newminiInstituto) {
+        miniInstituto = newminiInstituto;
     }
 
     @Override
     public void start(Stage stage) throws IOException {
+        Instituto instituto1 = new Instituto(baseDeDatos);
         stageRoot = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
